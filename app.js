@@ -8,7 +8,6 @@ const bodyParser = require('body-parser');
 const index = require('./routes/index');
 const home = require('./routes/home');
 const auth = require('./routes/auth');
-const events = require('./routes/events');
 
 const mongoose = require('mongoose');
 const passportConfig = require('./passport')
@@ -37,7 +36,7 @@ passportConfig(app);
 app.use('/', index);
 app.use('/auth', auth);
 app.use('/home', home);
-app.use('/events', events);
+
 
 
 

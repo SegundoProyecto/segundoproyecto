@@ -1,11 +1,15 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const TYPES = require('./Event-types');
+const moment = require('moment');
+
 
 const EventSchema = new Schema({
     title: { type: String, required: true },
     description: { type: String, required: true },
-    category: { type: String, required: true},
-    creator_id: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    category: { type: String, enum: TYPES, required: true},
+    creatorId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    username: String,
     goal: { type: Number, required: true },
     backerCount: { type: Number, default: 0 },
     totalCount: { type: Number, default: 0 },
@@ -15,5 +19,5 @@ const EventSchema = new Schema({
     });
   
 
-var Event = mongoose.model("Event", EventSchema);
+const Event = mongoose.model("Event", EventSchema);
 module.exports = Event;

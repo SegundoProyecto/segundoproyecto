@@ -5,6 +5,7 @@ const {
 const Coment = require('../models/Coment');
 const User = require('../models/User');
 const Event = require('../models/Event');
+
 mongoose.connect(dbUrl).then(() => console.log('db running'));
 
 function getRandomUser() {
@@ -13,8 +14,9 @@ function getRandomUser() {
         let event = new Event({
             title: "Partido de fútbol",
             description: "Partido de fútbol 7, nivel medio",
-            category : "Fútbol",
-            creator_id : "5a817d22ac05e6c9285b5d9a",
+            category : "Fútbol sala",
+            creatorId : "5a817d22ac05e6c9285b5d99",
+            username: "Pepe",
             goal: 5,
             backerCount: 13,
             totalCount: 0,
@@ -24,7 +26,7 @@ function getRandomUser() {
             if (err) {
                 throw err;
             }
-            console.log(`event added by ${event.user_name}`)
+            console.log(`event added by ${event.username}`)
             //cierra la conexion
             mongoose.connection.close();
         });
