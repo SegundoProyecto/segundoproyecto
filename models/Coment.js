@@ -19,5 +19,5 @@ const comentSchema = new Schema({
         timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
     });
 
-var Coment = mongoose.model("Coment", placeSchema);
+var Coment = mongoose.model("Coment", comentSchema);
 module.exports = Coment;

@@ -9,8 +9,10 @@ const index = require('./routes/index');
 const users = require('./routes/users');
 const mongoose = require('mongoose');
 
+const { dbUrl } = require('./config');
+//CONECTA LA BBDD
+mongoose.connect(dbUrl).then(() => console.log('db running'));
 
-mongoose.connect('mongodb://localhost/spotify', {useMongoClient: true});
 var app = express();
 
 // view engine setup
