@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const index = require('./routes/index');
 const auth = require('./routes/auth');
 const mongoose = require('mongoose');
+const passportConfig = require('./passport')
 
 const { dbUrl } = require('./config');
 //CONECTA LA BBDD
@@ -26,6 +27,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+passportConfig(app);
 
 app.use('/', index);
 app.use('/auth', auth);
