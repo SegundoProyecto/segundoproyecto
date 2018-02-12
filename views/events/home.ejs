@@ -1,24 +1,15 @@
-<div id="home">
-    <% if (timeline.length > 0) { %>
-        <% timeline.forEach(function(tweet) { %>
-            <div class="event-container">
-                <p>
-                    <%= event.name %>
-                </p>
-                <p class="date">
-                    <span>
-                        <a href="/profile/<%= event.user_name %>"> @
-                            <%= event.user_name %>
-                        </a>
-                    </span>
-                    <br>
-                    <%= moment(event.created_at).format("LL, LTS") %>
-                </p>
-            </div>
-    <% }) %>
-    <% } else { %>
-        <div class="event-container no-events">
-            <p>The timeline is empty</p>
+<div class="event-row row">
+    <h3 class="text-center">You may be interested in...</h3>
+    <% events.forEach((event) => { %>
+      <div class="col-sm-3 home-event-box">
+        <img src="<%= event.image %>">
+        <div class="event-info-wrapper">
+          <a class="title" href="/events/<%= event._id %>">
+            <strong><%= event.title %></strong>
+          </a><br>
+          by <span class="light-text"><%= event.creatorId.username %></span><br>
+          <span class="light-text description"><%= event.description %></span>
         </div>
-    <% } %>
-</div>
+      </div>
+    <%  }) %>
+  </div>

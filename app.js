@@ -4,9 +4,12 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-
+const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
 const index = require('./routes/index');
+const home = require('./routes/home');
 const auth = require('./routes/auth');
+
 const mongoose = require('mongoose');
 const passportConfig = require('./passport')
 
@@ -27,12 +30,24 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(session({
+  secret: "our-passport-local-strategy-app",
+  resave: true,
+  saveUninitialized: true,
+  store: new MongoStore({
+    mongooseConnection: mongoose.connection,
+    ttl: 24 * 60 * 60 // 1 day
+  })
+}));
 
 passportConfig(app);
 
 app.use('/', index);
 app.use('/auth', auth);
+app.use('/home', home);
+
+
+
 
 
 // catch 404 and forward to error handler
