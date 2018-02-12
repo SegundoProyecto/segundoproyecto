@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const EventSchema = new Schema({
     title: { type: String, required: true },
     description: { type: String, required: true },
-    category: { type: String, required: true },
+    category: { type: String, required: true},
     creator_id: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     goal: { type: Number, required: true },
     backerCount: { type: Number, default: 0 },
