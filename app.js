@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const index = require('./routes/index');
 const auth = require('./routes/auth');
 const mongoose = require('mongoose');
+const passportConfig = require('./passport')
 
 const { dbUrl } = require('./config');
 //CONECTA LA BBDD
