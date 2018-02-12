@@ -15,5 +15,5 @@ const eventSchema = new Schema({
         timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
     });
 
-var Place = mongoose.model("Place", placeSchema);
+var Place = mongoose.model("Place", eventSchema);
 module.exports = Place;
