@@ -6,7 +6,9 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
 const index = require('./routes/index');
+const home = require('./routes/home');
 const auth = require('./routes/auth');
+
 const mongoose = require('mongoose');
 const passportConfig = require('./passport')
 
@@ -33,6 +35,10 @@ passportConfig(app);
 
 app.use('/', index);
 app.use('/auth', auth);
+app.use('/home', home);
+
+
+
 
 
 // catch 404 and forward to error handler
