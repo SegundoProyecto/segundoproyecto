@@ -85,11 +85,13 @@ router.post('/:id/edit', ensureLoggedIn('/auth/login'), authorizeEvent, (req, re
   });
 });
 
-router.get('events/:id/people',(req,res)=>{
+router.get('/:id/people',(req,res)=>{
   console.log("ENTRO EN EVENTO")
   Event.findById(req.params.id)
       .then(c => {
-          c.currentPeople += parseInt(req.params.amount)
+          c.eventAsist.push(req.param.id);
+          c.currentPeople.push(req.sesion._id);
+          c.totalPerson =- 1;
           return c.save();
       })
       .then( c => {

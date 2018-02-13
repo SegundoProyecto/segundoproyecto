@@ -1,20 +1,12 @@
-<h1>
-  <%= title %>
-</h1>
-<p>Welcome to
-  <%= title %>
-</p>
-<% if(!user) { %>
+<div class="page-header">
+  <h1>Sportify
+    <small>
+      <br>Tu red social deportiva</small>
+  </h1>
+</div>
+<button type="button" class="btn btn-default btn-lg">
   <a href="/auth/login">Login</a>
+</button>
+<button type="button" class="btn btn-default btn-lg">
   <a href="/auth/signup">Signup</a>
-  </ul>
-  <% } else { %>
-    <h2>Hola
-      <%= user.username %>
-    </h2>
-
-    </br>
-    <a href="/private">p</a>
-    <a href="/onlyme?id=<%= user._id %>">Onlyme</a>
-    <a href="/auth/logout">Logout</a>
-    <% } %>
+</button>
