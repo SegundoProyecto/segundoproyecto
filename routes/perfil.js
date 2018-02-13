@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const authRoutes = express.Router();
+const User = require("../models/User");
 
 
 /* GET home page. */
-router.get('/perfil', function(req, res, next) {
+router.get('/', function(req, res, next) {
   res.render('perfil/perfil');
 });
 
