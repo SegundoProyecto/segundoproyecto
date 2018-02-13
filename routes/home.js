@@ -30,7 +30,7 @@ router.get('/new', (req, res) => {
   res.render('events/new', { types: TYPES });
 });
 
-router.post('/new', ensureLoggedIn('/auth/login'), authorizeEvent, (req, res, next) => {
+router.post('/new', ensureLoggedIn('/auth/login'), (req, res, next) => {
   const newEvent = new Event({
     title: req.body.title,
     goal: req.body.goal,
@@ -84,7 +84,5 @@ router.post('/:id/edit', ensureLoggedIn('/auth/login'), authorizeEvent, (req, re
     return res.redirect(`/home/${event._id}`);
   });
 });
-
-
 
 module.exports = router;

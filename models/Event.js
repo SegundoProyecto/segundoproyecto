@@ -12,6 +12,7 @@ const EventSchema = new Schema({
     username: String,
     goal: { type: Number, required: true },
     backerCount: { type: Number, default: 0 },
+    totalPledged  : { type: Number, default: 0 },
     totalCount: { type: Number, default: 0 },
     imgUrl: { type: String, default: "https://placeholdit.imgix.net/~text?txtsize=50&txt=Ironfunding&w=650&h=250" }
 }, {
@@ -22,5 +23,8 @@ EventSchema.methods.belongsTo = function (user) {
     return this._creator.equals(user._id);
 }
 
+EventSchema.virtual('timeRemaining').get(function () {
+    return moment(this.deadline).fromNow(true);
+});
 const Event = mongoose.model("Event", EventSchema);
 module.exports = Event;

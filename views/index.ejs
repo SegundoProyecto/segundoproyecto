@@ -1,23 +1,20 @@
-<!DOCTYPE html>
-<html>
-  <head>
-      <link rel='stylesheet' href='/stylesheets/style.css' />
-    <title><%= title %></title>
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    <% if(!user) { %>
-        <a href="/auth/login">Login</a>
-       <a href="/auth/signup">Signup</a>
-      </ul>
-    <% } else { %>
-      <h2>Hola <%= user.username %></h2>
-      
+<h1>
+  <%= title %>
+</h1>
+<p>Welcome to
+  <%= title %>
+</p>
+<% if(!user) { %>
+  <a href="/auth/login">Login</a>
+  <a href="/auth/signup">Signup</a>
+  </ul>
+  <% } else { %>
+    <h2>Hola
+      <%= user.username %>
+    </h2>
+
     </br>
-      <a href="/private">p</a>
-      <a href="/onlyme?id=<%= user._id %>">Onlyme</a>
-      <a href="/auth/logout">Logout</a>
+    <a href="/private">p</a>
+    <a href="/onlyme?id=<%= user._id %>">Onlyme</a>
+    <a href="/auth/logout">Logout</a>
     <% } %>
-  </body>
-</html>
