@@ -1,5 +1,8 @@
+<head>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
 <div class="event-row row">
-    <h3 class="text-center">You may be interested in...</h3>
+    <h3 class="text-center">You may be interested in...</h3> <a href="/home/new">New event</a> <a href="/auth/logout">Logout</a>
     <% events.forEach((event) => { %>
       <div class="col-sm-3 home-event-box">
         <img src="<%= event.image %>">
