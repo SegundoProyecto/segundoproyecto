@@ -6,12 +6,8 @@ passport.serializeUser((user, cb) => {
 });
 
 passport.deserializeUser((id, cb) => {
-    User.findOne({
-        "_id": id
-    }, (err, user) => {
-        if (err) {
-            return cb(err);
-        }
+    User.findOne({"_id": id}, (err, user) => {
+        if (err) {return cb(err);}
         cb(null, user);
     });
 });

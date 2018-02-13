@@ -4,12 +4,15 @@
       <div class="col-sm-3 home-event-box">
         <img src="<%= event.image %>">
         <div class="event-info-wrapper">
-          <a class="title" href="/events/<%= event._id %>">
+          <a class="title" href="/home/<%= event._id %>">
             <strong><%= event.title %></strong>
           </a><br>
-          by <span class="light-text"><%= event.creatorId.username %></span><br>
+          by <span class="light-text"><%= event.creatorId.username%></span><br>
           <span class="light-text description"><%= event.description %></span>
         </div>
       </div>
     <%  }) %>
   </div>
+  <button>
+    <a href="/home/new">Nuevo evento</a>
+    </button>

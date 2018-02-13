@@ -4,20 +4,21 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
+const passportConfig = require('./passport');
+const { dbUrl } = require('./config');
+
+
+//CONECTA LA BBDD
+mongoose.connect(dbUrl).then(() => console.log('db running'));
+
 const index = require('./routes/index');
 const home = require('./routes/home');
 const auth = require('./routes/auth');
 
-const mongoose = require('mongoose');
-const passportConfig = require('./passport')
-
-const { dbUrl } = require('./config');
-//CONECTA LA BBDD
-mongoose.connect(dbUrl).then(() => console.log('db running'));
-
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -42,6 +43,12 @@ app.use(session({
 }));
 
 passportConfig(app);
+
+app.use((req,res,next) => {
+  res.locals.user = req.user;
+  res.locals.title = 'Proyecto 2';
+  next();
+}) 
 
 app.use('/', index);
 app.use('/auth', auth);
