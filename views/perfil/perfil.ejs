@@ -1,0 +1,12 @@
+<h2>Crear usuario</h2>
+
+<form action="/perfil" method="POST" id="form-container">
+  <label for="title">Nombre</label>
+  <input type="text" name="name">
+  <br><br>
+  <% if (typeof(errorMessage) != "undefined") { %>
+    <div class="error-message"> <%= errorMessage %> </div>
+  <% } %>
+  <button>Create tweet</button>
+  <a href=""></a>
+</form>
