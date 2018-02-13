@@ -19,7 +19,7 @@ router.get('/', (req, res, next) => {
 
   Event
     .find({})
-    .populate('_creator')
+    .populate('creatorId')
     .exec((err, events) => {
       res.render('events/home', { events });
     });
