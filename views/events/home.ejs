@@ -2,20 +2,23 @@
   <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 <div class="event-row row">
-    <h3 class="text-center">You may be interested in...</h3> <a href="/home/new">New event</a> <a href="/auth/logout">Logout</a>
+    <h3 class="text-center">¿Qué deporte quieres realizar hoy?</h3> <a href="/auth/logout">Logout</a>
+    <br>
+    <a href="/home/new">Nuevo evento</a>
     <% events.forEach((event) => { %>
-      <div class="col-sm-3 home-event-box">
-        <img src="<%= event.image %>">
+      <div class="col-sm-2 home-event-box">
+        <!-- <img src="<%= event.image %>"> -->
+        <img src="http://clinicapuertolumbreras.com/wp-content/uploads/2017/08/5.jpg"><br>
         <div class="event-info-wrapper">
           <a class="title" href="/home/<%= event._id %>">
             <strong><%= event.title %></strong>
           </a><br>
-          by <span class="light-text"><%= event.creatorId.username%></span><br>
+          Evento de <span class="light-text"><%= event.creatorId.username %></span><br>
           <span class="light-text description"><%= event.description %></span>
         </div>
       </div>
     <%  }) %>
   </div>
   <button>
-    <a href="/home/new">Nuevo evento</a>
+    
     </button>
