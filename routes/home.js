@@ -4,6 +4,7 @@ const TYPES = require('../models/Event-types');
 const router = express.Router();
 const isLoggedIn = require('../middlewares/isLoggedIn');
 const onlyMe = require('../middlewares/onlyMe');
+const authorizeEvent = require('../middlewares/event-autorization');
 
 const ensureLoggedIn = (redirect_url) => {
   return (req, res, next) => {
@@ -15,7 +16,7 @@ const ensureLoggedIn = (redirect_url) => {
   }
 }
 
-router.get('/', (req, res, next) => {
+router.get('/', ensureLoggedIn('/auth/login'), (req, res, next) => {
 
   Event
     .find({})
@@ -29,7 +30,7 @@ router.get('/new', (req, res) => {
   res.render('events/new', { types: TYPES });
 });
 
-router.post('/new', ensureLoggedIn('/login'), (req, res, next) => {
+router.post('/new', ensureLoggedIn('/auth/login'), authorizeEvent, (req, res, next) => {
   const newEvent = new Event({
     title: req.body.title,
     goal: req.body.goal,
@@ -54,7 +55,7 @@ router.get('/:id', (req, res, next) => {
     .catch(e => next(e));
 });
 
-router.get('/:id/edit', ensureLoggedIn('/login'), (req, res, next) => {
+router.get('/:id/edit', ensureLoggedIn('/login'), authorizeEvent, (req, res, next) => {
   Event.findById(req.params.id, (err, event) => {
     if (err) { return next(err) }
     if (!event) { return next(new Error("404")) }
@@ -62,7 +63,7 @@ router.get('/:id/edit', ensureLoggedIn('/login'), (req, res, next) => {
   });
 });
 
-router.post('/:id/edit', ensureLoggedIn('/login'), (req, res, next) => {
+router.post('/:id/edit', ensureLoggedIn('/auth/login'), authorizeEvent, (req, res, next) => {
   const updates = {
     title: req.body.title,
     goal: req.body.goal,
@@ -83,6 +84,7 @@ router.post('/:id/edit', ensureLoggedIn('/login'), (req, res, next) => {
     return res.redirect(`/home/${event._id}`);
   });
 });
+
 
 
 module.exports = router;

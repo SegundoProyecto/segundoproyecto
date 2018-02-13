@@ -7,17 +7,20 @@ const moment = require('moment');
 const EventSchema = new Schema({
     title: { type: String, required: true },
     description: { type: String, required: true },
-    category: { type: String, enum: TYPES, required: true},
+    category: { type: String, enum: TYPES, required: true },
     creatorId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     username: String,
     goal: { type: Number, required: true },
     backerCount: { type: Number, default: 0 },
     totalCount: { type: Number, default: 0 },
     imgUrl: { type: String, default: "https://placeholdit.imgix.net/~text?txtsize=50&txt=Ironfunding&w=650&h=250" }
-  }, {
-      timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
+}, {
+        timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
     });
-  
+
+EventSchema.methods.belongsTo = function (user) {
+    return this._creator.equals(user._id);
+}
 
 const Event = mongoose.model("Event", EventSchema);
 module.exports = Event;

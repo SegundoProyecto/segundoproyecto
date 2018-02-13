@@ -3,6 +3,8 @@
 </head>
 <div class="event-row row">
     <h3 class="text-center">¿Qué deporte quieres realizar hoy?</h3> <a href="/auth/logout">Logout</a>
+    <br>
+    <a href="/home/new">Nuevo evento</a>
     <% events.forEach((event) => { %>
       <div class="col-sm-2 home-event-box">
         <!-- <img src="<%= event.image %>"> -->
@@ -18,5 +20,5 @@
     <%  }) %>
   </div>
   <button>
-    <a href="/home/new">Nuevo evento</a>
+    
     </button>
