@@ -4,7 +4,7 @@
         <ul class="nav navbar-nav">
           <li><a href="/home/new">Nuevo Proyecto</a></li>
           <li class="nav-logo">
-            <a href="#" class="nav-logo-link">
+              <a href="/home" class="nav-logo-link">
               <img class="nav-logo-image" src="http://sportify.io/wp-content/themes/sportify/images/Sportify-Logo.png" alt="Sportify Logo">
             </a>
           </li>
@@ -15,7 +15,7 @@
               <span class="glyphicon glyphicon-search"></span>
             </a>
           </li>
-            <li><a href="/profile">Profile</a></li>
+          <li><a href="/profile">Mi perfil</a></li>
             <li><a href="/auth/logout">Logout</a></li>
         </ul>
       </div>
@@ -40,13 +40,16 @@
     </div>
     <div class="col-sm-4 event-info">
       <div class="event-progress">
-        <progress value="<%= event.totalPledged %>" max="<%= event.goal %>"></progress>
+          <div class="col-sm-4 campaign-info">
+              <div class="campaign-progress" data-total-people="<%= event.totalPeople %>">
+        <progress value="<%= event.totalPeople %>" max="<%= event.totalPeople %>"></progress>
       </div>
-      <div class="event-pledged">
-        <span class="event-total">$<%= event.totalPledged %></span><br>
+      <div class="event-pledge">
+        <span class="event-total"><%= event.totalPeople %></span><br>
         <span class="light-text">
-          pledged of <%= event.goal %>€</span>
+            <%= event.totalPeople %> de <%= event.goal %></span>
         </span>
+
       </div>
       <div class="event-backers">
         <strong class="large-strong"><%= event.backerCount %></strong><br>
@@ -58,11 +61,11 @@
         <div class="event-time">
           <strong class="large-strong"><%= event.timeRemaining %></strong><br>
         </div>
+
         <a class="btn backr-btn back-it" 
-           href="/home/<%= event._id%>"
-           data-id="<%= event._id %>"
-           data-pledge="5">
-           Quiero unirme <%= event.goal %> €</a>
+           href="/events/<%= event._id%>/people" data-id="<%= event._id %>">
+           ¡Quiero unirme!</a>
+
            <br>
            <br>
            <br>

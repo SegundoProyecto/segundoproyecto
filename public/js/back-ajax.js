@@ -1,20 +1,27 @@
 $(() =>{
+    console.log("ENTRO EN AJAX")
     $(".back-it").on('click', (e) => {
+        console.log("ENTRO EN AJAX------------------->")
         let bt = $(e.currentTarget);
-        let price = parseInt($('.event-progress').attr('data-current-pledge'));
-        let increment = parseInt(bt.attr('data-pledge'));
+        let person = parseInt($('.event-progress').attr('data-current-people'));
+        let increment = parseInt(bt.attr('data-join'));
         e.preventDefault();
-        price += increment;
+        person += increment;
         let id = bt.attr('data-id');
-        $.ajax(`/event/${id}/pledge/${increment}`).then( r =>{
+        $.ajax(`/events/${id}/people`).then( r =>{
             let max_val = parseInt($('.event-progress progress').attr('max'));
-            if(price > max_val){
-                $('.event-total').text('Ya tienes tu Pony!!');
+            if(person > max_val){
+                $('.event-total').text('¡El evento ya está lleno!');
             }else{
-                $('.event-total').text(`\$${price}`);
-                $('.event-progress').attr('data-current-pledge',price)
-                $('.event-progress progress').attr('value',price);
+                $('.event-total').text(`\$${person}`);
+                $('.event-progress').attr('data-current-people',person)
+                $('.event-progress progress').attr('value',person);
             }
         });
     })
 })
+
+
+//En modelo User: eventosAsistir -- ID´s eventos a los que voy (eventAsist)
+//En modelo Event: totalPerson -- ID´s personas que asisten (currentPeople)
+//En front, restar del totalPerson =- 

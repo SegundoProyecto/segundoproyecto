@@ -7,6 +7,7 @@ const userSchema = new Schema({
     username: String,
     password: String,
     description: String,
+    eventAsistId: Array,
     imgUrl: { type: String, default: "https://placeholdit.imgix.net/~text?txtsize=50&txt=Ironfunding&w=250&h=250" }
 }, {
         timestamps: { createdAt: "created_at", updatedAt: "updated_at" }

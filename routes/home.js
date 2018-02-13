@@ -33,7 +33,7 @@ router.get('/new', (req, res) => {
 router.post('/new', ensureLoggedIn('/auth/login'), (req, res, next) => {
   const newEvent = new Event({
     title: req.body.title,
-    goal: req.body.goal,
+    totalPeople: req.body.people,
     description: req.body.description,
     category: req.body.category,
     deadline: req.body.deadline,
@@ -42,7 +42,7 @@ router.post('/new', ensureLoggedIn('/auth/login'), (req, res, next) => {
 
   newEvent.save((err) => {
     if (err) {
-      res.render('/', { event: newEvent, types: TYPES });
+      res.render('events/home', { event: newEvent, types: TYPES });
     } else {
       res.redirect(`/home/${newEvent._id}`);
     }
@@ -84,5 +84,21 @@ router.post('/:id/edit', ensureLoggedIn('/auth/login'), authorizeEvent, (req, re
     return res.redirect(`/home/${event._id}`);
   });
 });
+
+router.get('events/:id/people',(req,res)=>{
+  console.log("ENTRO EN EVENTO")
+  Event.findById(req.params.id)
+      .then(c => {
+          c.currentPeople += parseInt(req.params.amount)
+          return c.save();
+      })
+      .then( c => {
+          res.json({
+              status:"succeded",
+              current: c.currentPeople,
+          })
+      })
+      .catch(e => next(e));
+})
 
 module.exports = router;
