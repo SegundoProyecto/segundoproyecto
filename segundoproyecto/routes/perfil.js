@@ -15,8 +15,12 @@ const ensureLoggedIn = (redirect_url) => {
     }
   }
 }
+router.get('/', function(req, res, next) {
+  res.render('perfil/perfil');
+});
 
 router.get('/:id', (req, res, next) => {
+  console.log("hola")
   User.findById(req.params.id)
     .then(c => res.render('perfil/perfil', { event: c }))
     .catch(e => next(e));
