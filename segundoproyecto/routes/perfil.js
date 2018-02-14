@@ -20,28 +20,44 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/:id', (req, res, next) => {
-  console.log("hola")
   User.findById(req.params.id)
-    .then(c => res.render('perfil/perfil', { event: c }))
+    .then(c => res.render('perfil/perfil', { user: c }))
     .catch(e => next(e));
 });
 
-router.get('/:id/edit', ensureLoggedIn('/login'), authorizeEvent, (req, res, next) => {
-  User.findById(req.params.id, (err, event) => {
+ router.get('/:id/edit', ensureLoggedIn('/login'), (req, res, next) => {
+  console.log("hola")
+  User.findById(req.params.id, (err, user) => {
     if (err) { return next(err) }
-    if (!event) { return next(new Error("404")) }
-    return res.render('perfil/edit', { event, types: TYPES })
-  });
+    if (!user) { return next(new Error("404")) }
+    return res.render('perfil/edit')
+  });;
 });
 
-router.post('/:id/edit', ensureLoggedIn('/auth/login'), authorizeEvent, (req, res, next) => {
-  const updates = {
+router.post('/:id/edit', ensureLoggedIn('/auth/login'),  (req, res, next) => {
+  console.log("holaaaaa")
+  let updates = {
     name: req.body.name,
     email: req.body.email,
     username: req.body.username,
     description: req.body.description,
   };
+
+  User.findByIdAndUpdate(req.params.id, updates, (err, user) => {
+    console.log("adiosssssss")
+    if (err) {
+      return res.render('perfil/edit', {
+        user,
+        errors: user.errors
+      });
+    }
+    if (!user) {
+      return next(new Error('Error al editar, el usuario no existe'));
+    }
+    return res.redirect(`/perfil/${user._id}`);
+  });
 });
+
 
 module.exports = router;
 
