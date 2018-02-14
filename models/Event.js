@@ -1,19 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const moment = require('moment');
-
-TYPES  = [
-    "Fútbol sala",
-    "Ciclismo",
-    "Baloncesto",
-    "Padel",
-    "Tenis",
-    "Running",
-    "Balonmano",
-    "Fútbol 7",
-    "Fútbol 11",
-    "Volleyball",
-  ];
+const TYPES = require('../models/Event-Types');
 
 const EventSchema = new Schema({
     title: { type: String, required: true },

@@ -1,7 +1,7 @@
 const express = require('express');
 const Event = require('../models/Event');
 const User = require("../models/User");
-
+const TYPES = require('../models/Event-Types');
 const router = express.Router();
 const isLoggedIn = require('../middlewares/isLoggedIn');
 const onlyMe = require('../middlewares/onlyMe');
