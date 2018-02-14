@@ -98,13 +98,15 @@ router.post('/:id/gracias', (req, res, next) => {
   Event.findById(req.params.id)
     .then(event => {
       event.currentPeople.push(res.locals.user._id);
-      return event.save();})
+      return event.save();
+    })
     .then(event => {
       User.update(
-        { "_id" : res.locals.user._id },
-        {$push: {"eventAsistId" : event._id }},{new : true}
-    )
-    .then(res.redirect(`/home/${event._id}`))})
+        { "_id": res.locals.user._id },
+        { $push: { "eventAsistId": event._id } }, { new: true }
+      )
+        .then(res.redirect(`/home/${event._id}`))
+    })
     .catch(e => next(e));
 });
 

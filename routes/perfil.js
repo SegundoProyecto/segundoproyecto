@@ -15,7 +15,7 @@ const ensureLoggedIn = (redirect_url) => {
     }
   }
 }
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
   res.render('perfil/perfil');
 });
 
@@ -25,7 +25,7 @@ router.get('/:id', (req, res, next) => {
     .catch(e => next(e));
 });
 
- router.get('/:id/edit', ensureLoggedIn('/login'), (req, res, next) => {
+router.get('/:id/edit', ensureLoggedIn('/login'), (req, res, next) => {
   console.log("hola")
   User.findById(req.params.id, (err, user) => {
     if (err) { return next(err) }
@@ -34,7 +34,7 @@ router.get('/:id', (req, res, next) => {
   });;
 });
 
-router.post('/:id/edit', ensureLoggedIn('/auth/login'),  (req, res, next) => {
+router.post('/:id/edit', ensureLoggedIn('/auth/login'), (req, res, next) => {
   console.log("holaaaaa")
   let updates = {
     name: req.body.name,
