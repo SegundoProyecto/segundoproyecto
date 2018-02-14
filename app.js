@@ -1,3 +1,4 @@
+require('dotenv').load()
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
@@ -12,7 +13,7 @@ const axios = require('axios')
 const passportConfig = require('./passport');
 const { dbUrl } = require('./config');
 
-
+console.log({dbUrl})
 //CONECTA LA BBDD
 mongoose.connect(dbUrl).then(() => console.log('db running'));
 
