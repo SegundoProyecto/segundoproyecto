@@ -6,7 +6,7 @@
 					<a href="/home/new">Nuevo Proyecto</a>
 				</li>
 				<li class="nav-logo">
-					<a href="#" class="nav-logo-link">
+					<a href="/home" class="nav-logo-link">
 						<img class="nav-logo-image" src="http://sportify.io/wp-content/themes/sportify/images/Sportify-Logo.png" alt="Sportify Logo">
 					</a>
 				</li>
@@ -18,7 +18,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="/perfil">Profile</a>
+					<a href="/perfil/<%= user._id %>">Profile</a>
 				</li>
 				<li>
 					<a href="/auth/logout">Logout</a>
@@ -28,9 +28,6 @@
 	</div>
 </nav>
 <div style="margin-top: 50px;">
-
-		
-	
 		  <div class="col-sm-10">
 			<h3 class="user-username"><%= user.username %></h3>
 			<p class="user-description"><%= user.description %></p>
@@ -43,4 +40,13 @@
 			<a href="/home">Volver a la Página Principal</a><br>
 		  </div>
 		</div>
-	  </div>
+		</div>
+		
+		<section>
+			<h2>Upload your photo</h2>
+			<form action="/perfil/<%= user._id %>" method="post" enctype="multipart/form-data">
+				<input type="text" name="name">
+				<input type="file" name="photo">
+				<input type="submit" value="Save">
+			</form>
+		</section>

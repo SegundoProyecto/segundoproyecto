@@ -7,6 +7,7 @@ const expressLayouts = require('express-ejs-layouts');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require("express-session");
+const multer  = require('multer');
 const MongoStore = require("connect-mongo")(session);
 const axios = require('axios')
 const passportConfig = require('./passport');

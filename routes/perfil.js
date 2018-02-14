@@ -1,10 +1,12 @@
 const express = require("express");
 const User = require('../models/User');
+const Picture = require('../models/Picture');
 const router = express.Router();
 const isLoggedIn = require('../middlewares/isLoggedIn');
 const onlyMe = require('../middlewares/onlyMe');
 const authorizeEvent = require('../middlewares/event-autorization');
-
+const multer  = require('multer');
+const upload = multer({ dest: './public/uploads/' });
 
 const ensureLoggedIn = (redirect_url) => {
   return (req, res, next) => {
@@ -16,7 +18,9 @@ const ensureLoggedIn = (redirect_url) => {
   }
 }
 router.get('/', function (req, res, next) {
-  res.render('perfil/perfil');
+  Picture.find((err, pictures) => {
+  res.render('perfil/perfil', {pictures});
+  })
 });
 
 router.get('/:id', (req, res, next) => {
@@ -44,7 +48,6 @@ router.post('/:id/edit', ensureLoggedIn('/auth/login'), (req, res, next) => {
   };
 
   User.findByIdAndUpdate(req.params.id, updates, (err, user) => {
-    console.log("adiosssssss")
     if (err) {
       return res.render('perfil/edit', {
         user,
@@ -54,9 +57,23 @@ router.post('/:id/edit', ensureLoggedIn('/auth/login'), (req, res, next) => {
     if (!user) {
       return next(new Error('Error al editar, el usuario no existe'));
     }
-    return res.redirect(`/perfil/${user._id}`);
+    return res.redirect(`/perfil`);
   });
 });
+
+
+// router.post('/:id/perfil', upload.single('photo'), function(req, res){
+//   const pic = new Picture({
+//     name: req.body.name,
+//     path: `/uploads/${req.file.filename}`,
+//     originalName: req.file.originalname,
+//     creatorid: req.sesion._id,
+//   });
+
+//   pic.save((err) => {
+//       res.redirect('/home');
+//   });
+// });
 
 
 module.exports = router;
