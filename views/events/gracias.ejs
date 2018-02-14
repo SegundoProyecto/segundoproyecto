@@ -1,0 +1,17 @@
+<div class="page-header">
+    <h1>Sportify
+      <small>
+        <br>Tu red social deportiva</small>
+    </h1>
+  </div>
+
+    <form action="/home/<%= event._id %>/gracias" method="post">
+        <div class="form-group">
+          <label for="title"><%= event.title %></label>
+        </div>
+        <div class="checkbox">
+            <label><input type="checkbox" value="">Sí, quiero unirme</label>
+          </div>
+          <button type="submit">Quiero unirme</button>
+        </div>
+      </form>

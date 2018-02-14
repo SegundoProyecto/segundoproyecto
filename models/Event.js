@@ -11,7 +11,7 @@ const EventSchema = new Schema({
     creatorId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     username: String,
     currentPeople : [{type:Schema.Types.ObjectId, ref: 'User'}],
-    totalPeople  : { type: Number, default: 0},
+    totalPeople  : { type: Number},
     imgUrl: { type: String, default: "https://placeholdit.imgix.net/~text?txtsize=50&txt=Ironfunding&w=650&h=250" }
 }, {
         timestamps: { createdAt: "created_at", updatedAt: "updated_at" }

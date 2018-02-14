@@ -1,5 +1,6 @@
 const express = require('express');
 const Event = require('../models/Event');
+const User = require("../models/User");
 const TYPES = require('../models/Event-types');
 const router = express.Router();
 const isLoggedIn = require('../middlewares/isLoggedIn');
@@ -33,7 +34,7 @@ router.get('/new', (req, res) => {
 router.post('/new', ensureLoggedIn('/auth/login'), (req, res, next) => {
   const newEvent = new Event({
     title: req.body.title,
-    totalPeople: req.body.people,
+    totalPeople: req.body.totalPeople,
     description: req.body.description,
     category: req.body.category,
     deadline: req.body.deadline,
@@ -55,7 +56,7 @@ router.get('/:id', (req, res, next) => {
     .catch(e => next(e));
 });
 
-router.get('/:id/edit', ensureLoggedIn('/login'), authorizeEvent, (req, res, next) => {
+router.get('/:id/edit', ensureLoggedIn('/auth/login'), authorizeEvent, (req, res, next) => {
   Event.findById(req.params.id, (err, event) => {
     if (err) { return next(err) }
     if (!event) { return next(new Error("404")) }
@@ -85,22 +86,26 @@ router.post('/:id/edit', ensureLoggedIn('/auth/login'), authorizeEvent, (req, re
   });
 });
 
-router.get('/:id/people',(req,res)=>{
-  console.log("ENTRO EN EVENTO")
+router.get('/:id/gracias', ensureLoggedIn('/login'), (req, res, next) => {
+  Event.findById(req.params.id, (err, event) => {
+    if (err) { return next(err) }
+    if (!event) { return next(new Error("404")) }
+    return res.render('events/gracias', { event })
+  });
+});
+
+router.post('/:id/gracias', (req, res, next) => {
   Event.findById(req.params.id)
-      .then(c => {
-          c.eventAsist.push(req.param.id);
-          c.currentPeople.push(req.sesion._id);
-          c.totalPerson =- 1;
-          return c.save();
-      })
-      .then( c => {
-          res.json({
-              status:"succeded",
-              current: c.currentPeople,
-          })
-      })
-      .catch(e => next(e));
-})
+    .then(event => {
+      event.currentPeople.push(res.locals.user._id);
+      return event.save();})
+    .then(event => {
+      User.update(
+        { "_id" : res.locals.user._id },
+        {$push: {"eventAsistId" : event._id }},{new : true}
+    )
+    .then(res.redirect(`/home/${event._id}`))})
+    .catch(e => next(e));
+});
 
 module.exports = router;

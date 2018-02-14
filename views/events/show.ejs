@@ -39,35 +39,19 @@
       <img class="event-image" src="<%= event.image %>">
     </div>
     <div class="col-sm-4 event-info">
-      <div class="event-progress">
-          <div class="col-sm-4 campaign-info">
-              <div class="campaign-progress" data-total-people="<%= event.totalPeople %>">
-        <progress value="<%= event.totalPeople %>" max="<%= event.totalPeople %>"></progress>
-      </div>
       <div class="event-pledge">
-        <span class="event-total"><%= event.totalPeople %></span><br>
-        <span class="light-text">
-            <%= event.totalPeople %> de <%= event.goal %></span>
-        </span>
-
+        <span class="event-total">
+            <%= event.currentPeople.length %> de <%= event.totalPeople %></span>
       </div>
-      <div class="event-backers">
-        <strong class="large-strong"><%= event.backerCount %></strong><br>
-      </div>
-      <div class="event-backers">
-          <strong class="large-strong"><%= event.backerCount %></strong><br>
-          <span class="light-text">backers</span>
-        </div>
         <div class="event-time">
           <strong class="large-strong"><%= event.timeRemaining %></strong><br>
         </div>
+        <% if(event.currentPeople.length < event.totalPeople) { %>
+          <a class="btn  btn-success" href="/home/<%= event._id%>/gracias">¡Quiero unirme!</a>
+        <% }else{ %>
+          <h2>EVENTO COMPLETO</h2>
+        <% } %>
 
-        <a class="btn backr-btn back-it" 
-           href="/home/<%= event._id%>/people" data-id="<%= event._id %>">
-           ¡Quiero unirme!</a>
-
-           <br>
-           <br>
            <br>
            <br>
            <% if(user._id.equals(event.creatorId._id)) { %>
