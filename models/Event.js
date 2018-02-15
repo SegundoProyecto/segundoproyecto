@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const TYPES = require('./Event-types');
 const moment = require('moment');
-
+const TYPES = require('../models/Event-Types');
 
 const EventSchema = new Schema({
     title: { type: String, required: true },
@@ -12,8 +11,9 @@ const EventSchema = new Schema({
     lat: Number,
     log: Number,
     username: String,
-    currentPeople: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-    totalPeople: { type: Number },
+    deadline: { type: Date, required: true },
+    currentPeople : [{type:Schema.Types.ObjectId, ref: 'User'}],
+    totalPeople  : { type: Number},
     imgUrl: { type: String, default: "https://placeholdit.imgix.net/~text?txtsize=50&txt=Ironfunding&w=650&h=250" }
 }, {
         timestamps: { createdAt: "created_at", updatedAt: "updated_at" }

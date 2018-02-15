@@ -36,7 +36,7 @@ authRoutes.post("/signup", (req, res, next) => {
       if (err) {
         res.render("auth/signup", { message: "Something went wrong" });
       } else {
-        res.redirect("/perfil");
+        res.redirect("/home");
       }
     });
   });
@@ -48,7 +48,7 @@ authRoutes.get("/login", (req, res, next) => {
 
 authRoutes.post("/login", passport.authenticate("local", {
   successRedirect: "/home",
-  failureRedirect: "/auth/login"
+  failureRedirect: "/auth/signup"
 }));
 
 authRoutes.get("/logout", (req, res) => {

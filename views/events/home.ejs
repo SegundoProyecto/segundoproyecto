@@ -18,7 +18,7 @@
           </a>
         </li>
         <li>
-          <a href="/profile">Mi perfil</a>
+          <a href="/perfil">Mi perfil</a>
         </li>
         <li>
           <a href="/auth/logout">Logout</a>
@@ -42,14 +42,20 @@
               <%= event.title %>
             </strong>
           </a>
-          <br> Evento de
+          <br> Creado por
           <span class="light-text">
-            <%= event.creatorId.username %>
+           <%= event.creatorId.username %>
           </span>
           <br>
           <span class="light-text description">
             <%= event.description %>
           </span>
+          <div class="event-time">
+            <strong class="large-strong">
+              <%= event.timeRemaining %>
+            </strong>
+            <br>
+          </div>
         </div>
       </div>
       <%  }) %>
