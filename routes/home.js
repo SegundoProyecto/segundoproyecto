@@ -1,6 +1,7 @@
 const express = require('express');
 const Event = require('../models/Event');
 const User = require("../models/User");
+const Coment = require('../models/Coment')
 const TYPES = require('../models/Event-Types');
 const router = express.Router();
 const isLoggedIn = require('../middlewares/isLoggedIn');
@@ -51,9 +52,14 @@ router.post('/new', ensureLoggedIn('/auth/login'), (req, res, next) => {
 });
 
 router.get('/:id', (req, res, next) => {
+  const event = req.params.id;
+  let eventos;
   Event.findById(req.params.id).populate('creatorId')
-    .then(c => res.render('events/show', { event: c }))
-    .catch(e => next(e));
+  .then(e => {
+    eventos = e;
+    Coment.find({"event_id" : event})
+    .then( c => res.render('events/show', { event: eventos, comentario : c }))
+  })
 });
 
 router.get('/:id/edit', ensureLoggedIn('/auth/login'), authorizeEvent, (req, res, next) => {
@@ -87,7 +93,7 @@ router.post('/:id/edit', ensureLoggedIn('/auth/login'), authorizeEvent, (req, re
   });
 });
 
-router.get('/:id/gracias', ensureLoggedIn('/login'), (req, res, next) => {
+router.get('/:id/gracias', ensureLoggedIn('/auth/login'), (req, res, next) => {
   Event.findById(req.params.id, (err, event) => {
     if (err) { return next(err) }
     if (!event) { return next(new Error("404")) }
@@ -109,6 +115,30 @@ router.post('/:id/gracias', (req, res, next) => {
         .then(res.redirect(`/home/${event._id}`))
     })
     .catch(e => next(e));
+});
+
+router.get('/:id/coment', ensureLoggedIn('/auth/login'), (req, res, next) => {
+  Event.findById(req.params.id, (err, event) => {
+    if (err) { return next(err) }
+    if (!event) { return next(new Error("404")) }
+    return res.render('coments/new', { event })
+  });
+});
+
+router.post('/:id/coment', ensureLoggedIn('/auth/login'), (req, res, next) => {
+  const event_id = req.params.id
+  const newComent = new Coment({
+    description: req.body.description,
+    event_id: req.params.id,
+    creatorId: req.user._id
+  });
+  newComent.save((err) => {
+    if (err) {
+      res.render('events/home');
+    } else {
+      return res.redirect(`/home/${event_id}`);
+    }
+  });
 });
 
 module.exports = router;

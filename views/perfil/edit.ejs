@@ -34,7 +34,7 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-6 centered-form">
-        <form action="/perfil/<%= user._id %>/edit" method="post">
+        <form action="/perfil/<%= user._id %>/edit" method="post" enctype="multipart/form-data">
           <div class="form-group">
             <label for="name">Nombre</label>
             <input type="text" name="name" class="form-control" value="<%= user.name %>">

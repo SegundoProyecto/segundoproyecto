@@ -5,7 +5,7 @@
           <li><a href="/home/new">Nuevo Proyecto</a></li>
           <li class="nav-logo">
               <a href="/home" class="nav-logo-link">
-              <img class="nav-logo-image" src="http://sportify.io/wp-content/themes/sportify/images/Sportify-Logo.png" alt="Sportify Logo">
+              <img class="nav-logo-image" src="http://sportify.ro/wp-content/uploads/2017/05/Untitled-4.png" alt="Sportify Logo">
             </a>
           </li>
         </ul>
@@ -25,7 +25,9 @@
 <div class="container event-container">
   <div class="row">
     <div class="col-sm-2">
-      <img src="https://lh3.ggpht.com/DL2tCAHdVPT0Y4OgSkTFOCv4WEqqB8RJQsCQvIq2ogG42Qisvj2HFl1Yh420XttfRkRY=w128"><br>
+            <a href = '#' class = 'thumbnail'>
+              <img class="img-responsive img-rounded" src="<%= event.creatorId.pic_path%>" >
+            </a>	
       Evento creado por:  <strong><%= event.creatorId.username %></strong>
     </div>
     <div class="col-sm-10">
@@ -59,7 +61,12 @@
           <% } %>
           <br>
           <br>
+          <a class="btn btn-primary" href="/home/<%= event._id%>/coment">Comentar</a>
+          <br>
+          <br>
           <a class="btn btn-primary" href="/home">Volver a la Página Principal</a>
-    </div>
+        </div>
   </div>
 </div>
+
+<%= comentario %>
