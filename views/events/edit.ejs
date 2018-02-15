@@ -1,28 +1,34 @@
 <nav class="navbar">
-    <div class="container-fluid">
-          <div class="collapse navbar-collapse" id="home-nav">
-        <ul class="nav navbar-nav">
-          <li><a href="/home/new">Nuevo Proyecto</a></li>
-          <li class="nav-logo">
-            <a href="/home" class="nav-logo-link">
-              <img class="nav-logo-image" src="http://sportify.io/wp-content/themes/sportify/images/Sportify-Logo.png" alt="Sportify Logo">
-            </a>
-          </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li>
-            <a href="#">
-              <span class="glyphicon glyphicon-search"></span>
-            </a>
-          </li>
-          <li><a href="/profile">Mi perfil</a></li>
-            <li><a href="/auth/logout">Logout</a></li>
-        </ul>
-      </div>
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="home-nav">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="/home/new">Nuevo Proyecto</a>
+        </li>
+        <li class="nav-logo">
+          <a href="/home" class="nav-logo-link">
+            <img class="nav-logo-image" src="http://sportify.io/wp-content/themes/sportify/images/Sportify-Logo.png" alt="Sportify Logo">
+          </a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="#">
+            <span class="glyphicon glyphicon-search"></span>
+          </a>
+        </li>
+        <li>
+          <a href="/profile">Mi perfil</a>
+        </li>
+        <li>
+          <a href="/auth/logout">Logout</a>
+        </li>
+      </ul>
     </div>
-  </nav>
-  <div style="margin-top: 50px;">
-<div class="container">
+  </div>
+</nav>
+<div style="margin-top: 50px;">
+  <div class="container">
     <div class="row">
       <div class="col-sm-6 centered-form">
         <form action="/home/<%= event._id %>/edit" method="post">
@@ -36,29 +42,25 @@
           </div>
           <div class="form-group">
             <label for="description">Description</label>
-            <textarea
-              id="description"
-              name="description"
-              class="form-control">
+            <textarea id="description" name="description" class="form-control">
               <%= event.description %>
             </textarea>
           </div>
           <div class="form-group">
-            <label for="category">Category</label><br>
+            <label for="category">Category</label>
+            <br>
             <select name="category" id="category">
               <% types.forEach((category) => { %>
                 <% if (category === event.category) { %>
-                  <option
-                    selected
-                    type="text"
-                    value="<%= category %>"
-                    class="form-control">
-                  <%= category %>
+                  <option selected type="text" value="<%= category %>" class="form-control">
+                    <%= category %>
                   </option>
-                <% } else { %>
-                  <option type="text" value="<%= category %>" class="form-control"><%= category %></option>
-                <% } %>
-              <%  }) %>
+                  <% } else { %>
+                    <option type="text" value="<%= category %>" class="form-control">
+                      <%= category %>
+                    </option>
+                    <% } %>
+                      <%  }) %>
             </select>
           </div>
           <div class="form-group">
@@ -68,7 +70,19 @@
           <div class="form-group">
             <button type="submit">Update event</button>
           </div>
-        </form>
+          <style>
+            #map {
+              height: 400px;
+              width: 600px
+            }
+          </style>
+          <div id="map"></div>
+          <br></br>
       </div>
     </div>
+    </form>
   </div>
+</div>
+</div>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1WYxV_5IUMPk3zr7hoO43X0PgsacA_pc&libraries=places"></script>
+<script type="text/javascript" src="/js/map.js"></script>

@@ -1,59 +1,85 @@
 <nav class="navbar">
-    <div class="container-fluid">
-          <div class="collapse navbar-collapse" id="home-nav">
-        <ul class="nav navbar-nav">
-          <li><a href="/home/new">Nuevo Proyecto</a></li>
-          <li class="nav-logo">
-              <a href="/home" class="nav-logo-link">
-              <img class="nav-logo-image" src="http://sportify.io/wp-content/themes/sportify/images/Sportify-Logo.png" alt="Sportify Logo">
-            </a>
-          </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li>
-            <a href="#">
-              <span class="glyphicon glyphicon-search"></span>
-            </a>
-          </li>
-          <li><a href="/profile">Mi perfil</a></li>
-            <li><a href="/auth/logout">Logout</a></li>
-        </ul>
-      </div>
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="home-nav">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="/home/new">Nuevo Proyecto</a>
+        </li>
+        <li class="nav-logo">
+          <a href="/home" class="nav-logo-link">
+            <img class="nav-logo-image" src="http://sportify.io/wp-content/themes/sportify/images/Sportify-Logo.png" alt="Sportify Logo">
+          </a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="#">
+            <span class="glyphicon glyphicon-search"></span>
+          </a>
+        </li>
+        <li>
+          <a href="/profile">Mi perfil</a>
+        </li>
+        <li>
+          <a href="/auth/logout">Logout</a>
+        </li>
+      </ul>
     </div>
-  </nav>
-  <div style="margin-top: 50px;">
-<div class="container center-block" >
-  <div class="row">
-    <div class="col-sm-6 centered-form">
-      <form action="/home/new" method="post">
-        <div class="form-group">
-          <label for="title">Título</label>
-          <input type="text" name="title" class="form-control">
-        </div>
-        <div class="form-group">
-          <label for="totalPeople">¿Cuantas personas se pueden unir?</label>
-          <input type="text" name="totalPeople" class="form-control">
-        </div>
-        <div class="form-group">
-          <label for="description">Descripción</label>
-          <textarea id="description" name="description" class="form-control"></textarea>
-        </div>
-        <div class="form-group">
-          <label for="category">Categorias</label><br>
-          <select name="category" id="category" multiple class="form-control">
-            <% types.forEach((category) => { %>
-              <option type="text" value="<%= category %>"><%= category %></option>
-            <%  }) %>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="deadline">¿Qué día es tu evento?</label>
-          <input type="date" name="deadline" class="form-control">
-        </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-success">¡Lanzar evento!</button>
-        </div>
+  </div>
+</nav>
+<div style="margin-top: 50px;">
+
+
+  <div class="container center-block">
+    <div class="row">
+      <div class="col-sm-6 centered-form">
+        <form action="/home/new" method="post">
+          <div class="form-group">
+            <input id="lat" name="lat" placeholder="Latitude" style="visibility:hidden">
+            <input id="lon" name="log" placeholder="Longitude" style="visibility:hidden">
+            <label for="title">Título</label>
+            <input type="text" name="title" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="totalPeople">¿Cuantas personas se pueden unir?</label>
+            <input type="text" name="totalPeople" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="description">Descripción</label>
+            <textarea id="description" name="description" class="form-control"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="category">Categorias</label>
+            <br>
+            <select name="category" id="category" multiple class="form-control">
+              <% types.forEach((category) => { %>
+                <option type="text" value="<%= category %>">
+                  <%= category %>
+                </option>
+                <%  }) %>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="deadline">¿Qué día es tu evento?</label>
+            <input type="date" name="deadline" class="form-control">
+          </div>
+          <style>
+            #map {
+              height: 400px;
+              width: 600px
+            }
+          </style>
+          <input id="pac-input" class="controls" type="text" placeholder="Lugar">
+          <div id="map"></div>
+          <br></br>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-success">¡Lanzar evento!</button>
+      </div>
       </form>
     </div>
   </div>
 </div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1WYxV_5IUMPk3zr7hoO43X0PgsacA_pc&libraries=places"></script>
+<script type="text/javascript" src="/js/map.js"></script>

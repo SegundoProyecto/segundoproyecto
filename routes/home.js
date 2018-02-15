@@ -32,10 +32,13 @@ router.get('/new', (req, res) => {
 });
 
 router.post('/new', ensureLoggedIn('/auth/login'), (req, res, next) => {
+  console.log(req.body)
   const newEvent = new Event({
     title: req.body.title,
     totalPeople: req.body.totalPeople,
     description: req.body.description,
+    lat: req.body.lat, 
+    log: req.body.log,
     category: req.body.category,
     deadline: req.body.deadline,
     creatorId: req.user._id
@@ -52,7 +55,7 @@ router.post('/new', ensureLoggedIn('/auth/login'), (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
   Event.findById(req.params.id).populate('creatorId')
-    .then(c => res.render('events/show', { event: c }))
+    .then(c => res.render('events/show', { evento: c }))
     .catch(e => next(e));
 });
 
@@ -68,6 +71,8 @@ router.post('/:id/edit', ensureLoggedIn('/auth/login'), authorizeEvent, (req, re
   const updates = {
     title: req.body.title,
     goal: req.body.goal,
+    lat:req.body.lat ,
+    log:req.body.log ,
     description: req.body.description,
     category: req.body.category,
   };

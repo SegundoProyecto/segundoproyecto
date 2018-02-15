@@ -1,65 +1,98 @@
 <nav class="navbar">
-    <div class="container-fluid">
-          <div class="collapse navbar-collapse" id="home-nav">
-        <ul class="nav navbar-nav">
-          <li><a href="/home/new">Nuevo Proyecto</a></li>
-          <li class="nav-logo">
-              <a href="/home" class="nav-logo-link">
-              <img class="nav-logo-image" src="http://sportify.io/wp-content/themes/sportify/images/Sportify-Logo.png" alt="Sportify Logo">
-            </a>
-          </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li>
-            <a href="#">
-              <span class="glyphicon glyphicon-search"></span>
-            </a>
-          </li>
-          <li><a href="/profile">Mi perfil</a></li>
-            <li><a href="/auth/logout">Logout</a></li>
-        </ul>
-      </div>
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="home-nav">
+      <ul class="nav navbar-nav">
+        <li>
+          <a href="/home/new">Nuevo Proyecto</a>
+        </li>
+        <li class="nav-logo">
+          <a href="/home" class="nav-logo-link">
+            <img class="nav-logo-image" src="http://sportify.io/wp-content/themes/sportify/images/Sportify-Logo.png" alt="Sportify Logo">
+          </a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="#">
+            <span class="glyphicon glyphicon-search"></span>
+          </a>
+        </li>
+        <li>
+          <a href="/profile">Mi perfil</a>
+        </li>
+        <li>
+          <a href="/auth/logout">Logout</a>
+        </li>
+      </ul>
     </div>
-  </nav>
-  <div style="margin-top: 50px;">
-<div class="container event-container">
-  <div class="row">
-    <div class="col-sm-2">
-      <img src="https://lh3.ggpht.com/DL2tCAHdVPT0Y4OgSkTFOCv4WEqqB8RJQsCQvIq2ogG42Qisvj2HFl1Yh420XttfRkRY=w128"><br>
-      Evento creado por:  <strong><%= event.creatorId.username %></strong>
+  </div>
+</nav>
+<div style="margin-top: 50px;">
+
+  
+  <div class="container event-container">
+    <div class="row">
+      Evento creado por:
+      <strong>
+        <%= evento.creatorId.username %>
+      </strong>
     </div>
     <div class="col-sm-10">
-      <h1><%= event.title %></h1>
-      <h2 class="event-category"><%= event.category %></h2>
-      <p class="event-description"><%= event.description %></p>
+      <h1>
+        <%= evento.title %>
+      </h1>
+      <h2 class="event-category">
+        <%= evento.category %>
+      </h2>
+      <p class="event-description">
+        <%= evento.description %>
+      </p>
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-8">
-      <img class="event-image" src="<%= event.image %>">
+    <style>
+      #map {
+        height: 400px;
+        width: 600px
+      }
+    </style>
+    <div id="map">
     </div>
-    <div class="col-sm-4 event-info">
-      <div class="event-pledge">
-        <span class="event-total">
-            <%= event.currentPeople.length %> de <%= event.totalPeople %></span>
-      </div>
-        <div class="event-time">
-          <strong class="large-strong"><%= event.timeRemaining %></strong><br>
-        </div>
-        <% if(event.currentPeople.length < event.totalPeople) { %>
-          <a class="btn  btn-success" href="/home/<%= event._id%>/gracias">¡Quiero unirme!</a>
-        <% }else{ %>
-          <h2>EVENTO COMPLETO</h2>
+    <br></br>
+  </div>
+  <div class="mercenario">
+      <%= evento.lat %>
+      <%= evento.log %>
+  </div>
+  <div class="col-sm-4 event-info">
+    <div class="event-pledge">
+      <span class="event-total">
+        <%= evento.currentPeople.length %> de
+          <%= evento.totalPeople %>
+      </span>
+    </div>
+    <div class="event-time">
+      <strong class="large-strong">
+        <%= evento.timeRemaining %>
+      </strong>
+      <br>
+    </div>
+    <% if(evento.currentPeople.length < evento.totalPeople) { %>
+      <a class="btn  btn-success" href="/home/<%= evento._id%>/gracias">¡Quiero unirme!</a>
+      <% }else{ %>
+        <h2>EVENTO COMPLETO</h2>
         <% } %>
 
-           <br>
-           <br>
-           <% if(user._id.equals(event.creatorId._id)) { %>
-            <a class="btn btn-primary" href="/home/<%= event._id%>/edit">Editar</a>
-          <% } %>
           <br>
           <br>
-          <a class="btn btn-primary" href="/home">Volver a la Página Principal</a>
-    </div>
+          <% if(user._id.equals(evento.creatorId._id)) { %>
+            <a class="btn btn-primary" href="/home/<%= evento._id%>/edit">Editar</a>
+            <% } %>
+              <br>
+              <br>
+              <a class="btn btn-primary" href="/home">Volver a la Página Principal</a>
   </div>
 </div>
+</div>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1WYxV_5IUMPk3zr7hoO43X0PgsacA_pc&libraries=places"></script>
+<script type="text/javascript" src="/js/mapDraw.js"></script>
