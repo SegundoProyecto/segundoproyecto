@@ -38,7 +38,7 @@ router.post('/new', ensureLoggedIn('/auth/login'), (req, res, next) => {
     title: req.body.title,
     totalPeople: req.body.totalPeople,
     description: req.body.description,
-    lat: req.body.lat, 
+    lat: req.body.lat,
     log: req.body.log,
     category: req.body.category,
     deadline: req.body.deadline,
@@ -58,11 +58,12 @@ router.get('/:id', (req, res, next) => {
   const event = req.params.id;
   let eventos;
   Event.findById(req.params.id).populate('creatorId')
-  .then(e => {
-    eventos = e;
-    Coment.find({"event_id" : event})
-    .then( c => res.render('events/show', { event: evento, comentario : c }))
-  })
+    // .then(c => res.render('events/show', { event: c }))
+    .then(e => {
+      eventos = e;
+      Coment.find({ "event_id": event })
+        .then(c => res.render('events/show', { event: e, comentario: c }))
+    })
 });
 
 router.get('/:id/edit', ensureLoggedIn('/auth/login'), authorizeEvent, (req, res, next) => {
@@ -77,8 +78,8 @@ router.post('/:id/edit', ensureLoggedIn('/auth/login'), authorizeEvent, (req, re
   const updates = {
     title: req.body.title,
     totalPeople: req.body.totalPeople,
-    lat:req.body.lat ,
-    log:req.body.log,
+    lat: req.body.lat,
+    log: req.body.log,
     deadline: req.body.deadline,
     description: req.body.description,
     category: req.body.category,
@@ -135,7 +136,7 @@ router.post('/:id/coment', ensureLoggedIn('/auth/login'), (req, res, next) => {
   const newComent = new Coment({
     description: req.body.description,
     event_id: req.params.id,
-    creatorId: req.user._id
+    creatorid: res.locals.user._id
   });
   newComent.save((err) => {
     if (err) {
@@ -147,3 +148,14 @@ router.post('/:id/coment', ensureLoggedIn('/auth/login'), (req, res, next) => {
 });
 
 module.exports = router;
+
+
+
+//NOTA PARA MAÑANA
+//¡¡¡¡¡NECESITO HACER UN POPULATE PARA MOSTAR EL NOMBRE PERO NO SE MUY BIEN COMO HACERLO!!!!!!!
+{/* <div class="col-sm-10"></div>
+<p class="event-description">
+    De:
+    <%= comentario.creatorid.username %>
+  </p>
+</div> */}
