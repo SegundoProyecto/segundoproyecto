@@ -67,7 +67,8 @@ router.get('/:id/edit', ensureLoggedIn('/auth/login'), authorizeEvent, (req, res
 router.post('/:id/edit', ensureLoggedIn('/auth/login'), authorizeEvent, (req, res, next) => {
   const updates = {
     title: req.body.title,
-    goal: req.body.goal,
+    totalPeople: req.body.totalPeople,
+    deadline: req.body.deadline,
     description: req.body.description,
     category: req.body.category,
   };

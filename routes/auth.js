@@ -48,7 +48,7 @@ authRoutes.get("/login", (req, res, next) => {
 
 authRoutes.post("/login", passport.authenticate("local", {
   successRedirect: "/home",
-  failureRedirect: "/auth/login"
+  failureRedirect: "/auth/signup"
 }));
 
 authRoutes.get("/logout", (req, res) => {

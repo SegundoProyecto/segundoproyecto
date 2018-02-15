@@ -26,7 +26,6 @@ router.get('/:id', (req, res, next) => {
 });
 
 router.get('/:id/edit', ensureLoggedIn('/login'), (req, res, next) => {
-  console.log("hola")
   User.findById(req.params.id, (err, user) => {
     if (err) { return next(err) }
     if (!user) { return next(new Error("404")) }
@@ -35,16 +34,16 @@ router.get('/:id/edit', ensureLoggedIn('/login'), (req, res, next) => {
 });
 
 router.post('/:id/edit', ensureLoggedIn('/auth/login'), (req, res, next) => {
-  console.log("holaaaaa")
   let updates = {
     name: req.body.name,
     email: req.body.email,
     username: req.body.username,
     description: req.body.description,
+    pic_path: `../uploads/${req.file.filename}`,
+    pic_name: req.file.originalname
   };
 
   User.findByIdAndUpdate(req.params.id, updates, (err, user) => {
-    console.log("adiosssssss")
     if (err) {
       return res.render('perfil/edit', {
         user,

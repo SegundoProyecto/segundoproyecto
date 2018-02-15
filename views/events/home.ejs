@@ -34,6 +34,9 @@
           </a><br>
           Evento de <span class="light-text"><%= event.creatorId.username %></span><br>
           <span class="light-text description"><%= event.description %></span>
+          <div class="event-time">
+            <strong class="large-strong"><%= event.timeRemaining %></strong><br>
+          </div>
         </div>
       </div>
     <%  }) %>
