@@ -7,18 +7,13 @@
         </li>
         <li class="nav-logo">
           <a href="/home" class="nav-logo-link">
-            <img class="nav-logo-image" src="http://sportify.io/wp-content/themes/sportify/images/Sportify-Logo.png" alt="Sportify Logo">
+            <img class="nav-logo-image" src="https://s3.amazonaws.com/media-p.slid.es/uploads/820044/images/4613607/Untitled-4.png" alt="Sportify Logo">
           </a>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <a href="#">
-            <span class="glyphicon glyphicon-search"></span>
-          </a>
-        </li>
-        <li>
-          <a href="/perfil">Mi perfil</a>
+          <a href="/perfil">Mi Perfil</a>
         </li>
         <li>
           <a href="/auth/logout">Logout</a>
@@ -28,20 +23,21 @@
   </div>
 </nav>
 <div style="margin-top: 50px;">
+  
   <div class="event-row row">
     <h3 class="text-center">¿Qué deporte quieres realizar hoy?</h3>
     <% events.forEach((event) => { %>
 
 
-      <div class="col-sm-2 home-event-box">
-        <img src="http://www.cfsantjust.com/wp-content/uploads/2016/08/futbol_dic2013.jpg">
+      <div class="col-sm-2 home-event-box evento">
+        <img  class="evento" src="http://www.cfsantjust.com/wp-content/uploads/2016/08/futbol_dic2013.jpg">
         <br>
         <div class="event-info-wrapper">
           <a class="title" href="/home/<%= event._id %>">
             <strong>
               <%= event.title %>
             </strong>
-          </a>
+          </a><br>
           <br> Creado por
           <span class="light-text">
            <%= event.creatorId.username %>
@@ -50,9 +46,10 @@
           <span class="light-text description">
             <%= event.description %>
           </span>
-          <div class="event-time">
+          <br>
+          <div class=" light-text event-time">
             <strong class="large-strong">
-              <%= event.timeRemaining %>
+              <h5><%= event.timeRemaining %></h5>
             </strong>
             <br>
           </div>

@@ -38,7 +38,7 @@ router.post('/new', ensureLoggedIn('/auth/login'), (req, res, next) => {
     title: req.body.title,
     totalPeople: req.body.totalPeople,
     description: req.body.description,
-    lat: req.body.lat, 
+    lat: req.body.lat,
     log: req.body.log,
     category: req.body.category,
     deadline: req.body.deadline,
@@ -56,13 +56,17 @@ router.post('/new', ensureLoggedIn('/auth/login'), (req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
   const event = req.params.id;
-  let eventos;
+  let mapa;
   Event.findById(req.params.id).populate('creatorId')
-  .then(e => {
-    eventos = e;
-    Coment.find({"event_id" : event})
-    .then( c => res.render('events/show', { event: evento, comentario : c }))
-  })
+    .then(e => {
+      mapa = {lat:e.lat, lng:e.log}
+      Coment.find({ "event_id": event })
+        .populate("creatorid")
+        .then(c => {
+          console.log(c)
+          res.render('events/show', { event: e, comentario: c, mapa: mapa })
+        })
+    })
 });
 
 router.get('/:id/edit', ensureLoggedIn('/auth/login'), authorizeEvent, (req, res, next) => {
@@ -77,8 +81,6 @@ router.post('/:id/edit', ensureLoggedIn('/auth/login'), authorizeEvent, (req, re
   const updates = {
     title: req.body.title,
     totalPeople: req.body.totalPeople,
-    lat:req.body.lat ,
-    log:req.body.log,
     deadline: req.body.deadline,
     description: req.body.description,
     category: req.body.category,
@@ -135,7 +137,7 @@ router.post('/:id/coment', ensureLoggedIn('/auth/login'), (req, res, next) => {
   const newComent = new Coment({
     description: req.body.description,
     event_id: req.params.id,
-    creatorId: req.user._id
+    creatorid: res.locals.user._id
   });
   newComent.save((err) => {
     if (err) {

@@ -1,17 +1,32 @@
 <head>
   <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
-<form action="/auth/login" method="POST">
-  <div>
-    <label for="username">Username:</label>
-    <input type="text" name="username" required>
+<div id="login">
+  <div class="page-header">
+    <img src="https://s3.amazonaws.com/media-p.slid.es/uploads/820044/images/4613607/Untitled-4.png" alt="" width="50%">
+    <h1>
+      <small>Log In</small>
+    </h1>
   </div>
-  <div>
-    <label for="password">Password:</label>
-    <input type="password" name="password" required>
-  </div>
-  <div>
-    <input type="submit" value="Log In">
-  </div>
-  <a href="/">Go Home</a>
-</form>
+  <form action="/auth/login" method="POST">
+    <div class="cuadro">
+      <div class="form-group">
+        <input class="form-control" placeholder="Username" name="username" type="text" required>
+      </div>
+      <div class="form-group">
+        <input class="form-control" placeholder="Password" name="password" type="password" required>
+      </div>
+    </div>
+    <div>
+      <button type="submit" class="btn btn-default" value="Log In">Log In</button>
+    </div>
+    <p class="account-message">
+      ¿Aun no estas registrado? A que esperas...
+      <a href="/auth/signup">Signup</a>
+    </p>
+    <br>
+    <br>
+    <br>
+    <a href="/">Volver</a>
+  </form>
+</div>

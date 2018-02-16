@@ -7,16 +7,11 @@
 				</li>
 				<li class="nav-logo">
 					<a href="/home" class="nav-logo-link">
-						<img class="nav-logo-image" src="http://sportify.io/wp-content/themes/sportify/images/Sportify-Logo.png" alt="Sportify Logo">
+						<img class="nav-logo-image" src="https://s3.amazonaws.com/media-p.slid.es/uploads/820044/images/4613607/Untitled-4.png" alt="Sportify Logo">
 					</a>
 				</li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li>
-					<a href="#">
-						<span class="glyphicon glyphicon-search"></span>
-					</a>
-				</li>
 				<li>
 					<a href="/perfil">Mi Perfil</a>
 				</li>
@@ -29,23 +24,59 @@
 </nav>
 <div style="margin-top: 50px;">
 
-		
-	
-		  <div class="col-sm-10">
-			<h3 class="user-username"><%= user.username %></h3>
-			<p class="user-description"><%= user.description %></p>
-			<div class="col-sm-3">
-				<a href = '#' class = 'thumbnail'>
-					<img class="img-responsive img-rounded" src="<%= user.pic_path%>" >
-				</a>	
-			</div>
-		  </div>
-		</div>
-				<br>
-				<br>
-				<a class="btn btn-primary" href="/perfil/<%= user._id%>/edit">Editar</a>
 
-			<a href="/home">Volver a la Página Principal</a><br>
-		  </div>
+	<div class="container">
+		<div class="span3 well">
+			<center>
+				<a href="#aboutModal" data-toggle="modal" data-target="#myModal">
+					<img src="<%= user.pic_path%>" name="aboutme" width="140" height="140" class="img-circle">
+				</a>
+				<h3>
+					<%= user.username %>
+				</h3>
+				<em>Para mas informacion click en mi cara</em>
+				<br>
+				<br>
+			</center>
+			<a href="/home">Volver a la Página Principal</a>
+			<br>
 		</div>
-	  </div>
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+						<h4 class="modal-title" id="myModalLabel">Mas sobre
+							<%= user.username %>
+						</h4>
+					</div>
+					<div class="modal-body">
+						<center>
+							<img src="<%= user.pic_path%>" class="img-responsive img-rounded" name="aboutme" width="140" height="140" border="0" class="img-circle">
+							</a>
+							<h3 class="media-heading">
+								<%= user.username %>
+							</h3>
+						</center>
+						<hr>
+						<center>
+							<p class="text-left">
+								<strong>Descripción: </strong>
+								<br>
+								<%= user.description %>
+							</p>
+							<br>
+						</center>
+					</div>
+					<div class="modal-footer">
+						<center>
+							<button type="button" class="btn btn-default" data-dismiss="modal">Salir</button>
+							<a class="btn btn-default" href="/perfil/<%= user._id%>/edit">Editar</a>
+						</center>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
