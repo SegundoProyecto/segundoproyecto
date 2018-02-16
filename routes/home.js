@@ -58,11 +58,14 @@ router.get('/:id', (req, res, next) => {
   const event = req.params.id;
   let eventos;
   Event.findById(req.params.id).populate('creatorId')
-    // .then(c => res.render('events/show', { event: c }))
     .then(e => {
       eventos = e;
       Coment.find({ "event_id": event })
-        .then(c => res.render('events/show', { event: e, comentario: c }))
+        .populate("creatorid")
+        .then(c => {
+          console.log(c)
+          res.render('events/show', { event: e, comentario: c })
+        })
     })
 });
 
@@ -148,14 +151,3 @@ router.post('/:id/coment', ensureLoggedIn('/auth/login'), (req, res, next) => {
 });
 
 module.exports = router;
-
-
-
-//NOTA PARA MAÑANA
-//¡¡¡¡¡NECESITO HACER UN POPULATE PARA MOSTAR EL NOMBRE PERO NO SE MUY BIEN COMO HACERLO!!!!!!!
-{/* <div class="col-sm-10"></div>
-<p class="event-description">
-    De:
-    <%= comentario.creatorid.username %>
-  </p>
-</div> */}

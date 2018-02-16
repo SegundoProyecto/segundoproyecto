@@ -17,15 +17,15 @@ const ensureLoggedIn = (redirect_url) => {
     }
   }
 }
-router.get('/', function (req, res, next) {
-  res.render('perfil/perfil');
+router.get('/:id', function (req, res, next) {
+  User.findById(res.locals.user._id)
+  .populate("eventAsistId")
+  .then(c =>
+    console.log("c"),
+      res.render('perfil/perfil', { user: c }))
+  .catch(e => next(e));
 });
 
-router.get('/', (req, res, next) => {
-  User.findById(req.params.id)
-    .then(c => res.render('perfil/perfil', { user: c }))
-    .catch(e => next(e));
-});
 
 router.get('/:id/edit', ensureLoggedIn('/login'), (req, res, next) => {
   User.findById(req.params.id, (err, user) => {
